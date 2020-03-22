@@ -1,0 +1,139 @@
+---
+# server installation
+- hosts: broker
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Install nessesary package
+      apt: 
+        name: apt-transport-https
+        state: present
+        update_cache: yes
+
+    - name: Download esl-erlang package
+      get_url:
+        url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+        dest: /home/vagrant/esl-erlang_21.0-1~debian~stretch_amd64.deb
+        mode: 0755
+
+    - name: Install esl-erlang
+      apt:
+        deb: /home/vagrant/esl-erlang_21.0-1~debian~stretch_amd64.deb
+
+    - name: Download erlang
+      get_url:
+        url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+        dest: /home/vagrant/erlang-solutions_1.0_all.deb
+        mode: 0755
+
+    - name: Install erlang repository
+      apt:
+        deb: /home/vagrant/erlang-solutions_1.0_all.deb
+
+    - name: Add an Apt signing key
+      apt_key:
+        url: https://packages.erlang-solutions.com/debian/erlang_solutions.asc
+        state: present
+
+    - name: Fix unmet dependencies
+      shell: apt-get -f install
+
+# RabbitMQ install
+    - name: Add the rabbitmq repository's key
+      apt_key: url=https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x6B73A36E6026DFCA
+
+    - name: Add the rabbitmq repository
+      shell: echo "deb https://dl.bintray.com/rabbitmq/debian stretch main" | tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+
+    - name: Install rabbitmq-server
+      apt:
+        name: rabbitmq-server
+        state: present
+        update_cache: yes
+
+    - name: Enable rabbitmq-server to survive reboot
+      service: name=rabbitmq-server enabled=yes
+
+    - name: Create configuration file
+      shell: |
+        echo "listeners.tcp.1 = 0.0.0.0:5672" >> /etc/rabbitmq/rabbitmq.conf
+        service rabbitmq-server restart
+
+    - name: add rabbitmq user Productor
+      rabbitmq_user:
+        user: Productor
+        password: Productor
+        permissions:
+          - vhost: /
+            configure_priv: .*
+            read_priv: .*
+            write_priv: .*
+        state: present
+
+    - name: add rabbitmq user Consumidor1
+      rabbitmq_user:
+        user: Consumidor1
+        password: Consumidor1
+        permissions:
+          - vhost: /
+            configure_priv: .*
+            read_priv: .*
+            write_priv: .*
+        state: present
+
+    - name: add rabbitmq user Consumidor2
+      rabbitmq_user:
+        user: Consumidor2
+        password: Consumidor2
+        permissions:
+          - vhost: /
+            configure_priv: .*
+            read_priv: .*
+            write_priv: .*
+        state: present
+
+- hosts: productor, consumidor
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: apt-get update
+      apt:
+        update-cache: yes
+      changed_when: 0
+
+    - name: Download pip installer
+      get_url:
+        url: https://bootstrap.pypa.io/get-pip.py
+        dest: /tmp/get-pip.py
+    
+    - name: Install pip
+      shell: |
+        /usr/bin/python /tmp/get-pip.py
+
+    - name: install pika
+      pip: 
+        name: pika
+
+- hosts: Consumidor1
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Transfer the receiver1 program
+      copy: src=../programasPython/receiver1.py dest=/home/ mode=0777
+
+    - name: Execute the program
+      shell: tmux new-session -d -s "C1" python /home/receiver1.py
+
+- hosts: Consumidor2
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Transfer the receiver2 program
+      copy: src=../programasPython/receiver2.py dest=/home/ mode=0777
+
+    - name: Execute the program
+      shell: tmux new-session -d -s "C2" python /home/receiver2.py

@@ -1,0 +1,39 @@
+config.vm.define "RabbitMQ" do |cfg|
+      cfg.vm.provider :virtualbox do |vb, override| 
+        config.vm.box = "bento/ubuntu-18.04"
+        override.vm.network "private_network", ip: "192.168.56.12"
+        override.vm.network "forwarded_port", guest: 22, host:2200, id: "ssh", auto_correct: true
+        override.vm.hostname = "RabbitMQ"
+        vb.name = "RabbitMQ"
+      end
+    end
+    
+    config.vm.define "Productor" do |cfg|
+      cfg.vm.provider :virtualbox do |vb, override| 
+        config.vm.box = "bento/ubuntu-18.04"
+        override.vm.network "private_network", ip: "192.168.56.13"
+        override.vm.network "forwarded_port", guest: 22, host:2222, id: "ssh", auto_correct: true
+        override.vm.hostname = "Productor"
+        vb.name = "Productor"
+      end
+    end
+    
+    config.vm.define "Consumidor1" do |cfg|
+      cfg.vm.provider :virtualbox do |vb, override| 
+        config.vm.box = "bento/ubuntu-18.04"
+        override.vm.network "private_network", ip: "192.168.56.14"
+        override.vm.network "forwarded_port", guest: 22, host:2220, id: "ssh", auto_correct: true
+        override.vm.hostname = "Consumidor1"
+        vb.name = "Consumidor1"
+      end
+    end
+
+    config.vm.define "Consumidor2" do |cfg|
+      cfg.vm.provider :virtualbox do |vb, override| 
+        config.vm.box = "bento/ubuntu-18.04"
+        override.vm.network "private_network", ip: "192.168.56.15"
+        override.vm.network "forwarded_port", guest: 22, host:2221, id: "ssh", auto_correct: true
+        override.vm.hostname = "Consumidor2"
+        vb.name = "Consumidor2"
+      end
+    end

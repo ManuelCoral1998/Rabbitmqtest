@@ -1,0 +1,18 @@
+Para la maquina que tenga RabbitMQ
+
+1. Instalar Erlang
+2. Instalar RabbitMQ
+3. Crear el archivo de configuración de RabbitMQ en la direccion /etc/rabbitmq/rabbitmq.conf
+  3.1. Agregar la linea listeners.tcp.1 = 0.0.0.0:5672
+
+4. Crear los usuarios en RabbitMQ con "sudo rabbitmqctl add_user *name* *password*"
+5. Darle permisos a esos usuarios al vhost / con " sudo rabbitmqctl set_permissions -p / *name* ".*" ".*" ".*" "
+6. Reiniciar el servicio de RabbitMQ
+
+Para las maquinas productora o consumidora
+
+1. Pasarle el programa .py
+2. Instalar pip con "sudo apt update" y "sudo apt-get install python-pip"
+3. Instalar pika con "pip install pika"
+4. Ejecutar el programa .py
+
