@@ -125,3 +125,9 @@ Para resolver el problema se decidió usar máquinas virtuales creadas y adminis
  ![Imagen 41](/images/Funcionamiento_total.png)
 
 ## Dificultades encontradas
+Durante el desarrollo del parcial nos encontramos con una dificultad, esta fue: ¿Cómo hacer para que el servicio de RabbitMQ pudiera funcionar de manera distribuida?, es decir, que desde otras máquinas (direcciones IP) se pudieran conectar al servidor que tenía RabbitMQ
+La solución fue:
+ + Buscar la documentación de Pika y darnos cuenta de que se necesitan unas credenciales y unos permisos para acceder al servicio (eso por parte de los consumidores y el productor)
+ + Buscar la documentación de rabbitmq y ver que por defecto funciona en localhost y para permitir que sea alcanzado de manera remota eran necesario:
+	1. Crear el archivo de configuración y agregarle (el comando que me enviaste) y reiniciar el servicio
+	2. Crear usuarios y darles los permisos de escritura y lectura, es importante recalcar en este caso que un solo usuario hubiera sido suficiente (es decir con un solo usuario, haciendo las modificaciones correctas en los códigos de python habría bastado) pero nosotros consideramos crear 3 usuarios pensando en que a futuro es posible que algún permiso de esos usuarios cambie y sería más fácil el mantenimiento
