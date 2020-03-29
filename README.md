@@ -23,9 +23,9 @@ Para resolver el problema se decidio usar maquinas virtuales creadas y adminstra
 ![Imagen 1](/images/Vagrantfile.PNG)
 
 ##### 2. Aprovisionamiento de las maquinas
- + Se creó el archivo ansible.cfg	
+ + Se creó el archivo ansible.cfg							
  ![Imagen 2](/images/ansiblecfg.PNG)
- + Se creó el archivo hosts	
+ + Se creó el archivo hosts									
  ![Imagen 3](/images/hosts.PNG)
  + Se creó el archivo servers.yml en donde se definio el codigo para el aprovionamiento de las maquinas
 	+ Maquina broker	
