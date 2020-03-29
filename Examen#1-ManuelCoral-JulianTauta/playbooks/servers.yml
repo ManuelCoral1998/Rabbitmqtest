@@ -11,16 +11,7 @@
         state: present
         update_cache: yes
 
-    #- name: Download esl-erlang package
-    #  get_url:
-    #    url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
-    #    dest: /home/vagrant/esl-erlang_21.0-1~debian~stretch_amd64.deb
-    #    mode: 0755
-
-    #- name: Install esl-erlang
-    #  apt:
-    #    deb: /home/vagrant/esl-erlang_21.0-1~debian~stretch_amd64.deb
-
+    # Install Erlang
     - name: Download erlang
       get_url:
         url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
@@ -39,7 +30,7 @@
     - name: Fix unmet dependencies
       shell: apt-get -f install
 
-# RabbitMQ install
+    # Install RabbitMQ
     - name: Add the rabbitmq repository's key
       apt_key: url=https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x6B73A36E6026DFCA
 
