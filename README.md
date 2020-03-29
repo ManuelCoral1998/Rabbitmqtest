@@ -16,25 +16,25 @@ Implemente una arquitectura que contenga:
 
 ### Desarrollo
 
-Para resolver el problema se decidio usar maquinas virtuales creadas y adminstradas con Vagrant y aprovisionadas con Ansible.
+Para resolver el problema se decidio usar maquinas virtuales creadas y administradas con Vagrant y aprovisionadas con Ansible.
 
 ##### 1. Creación de Maquinas virtuales
- + Para crear las maquias virtuales para el productor, los consumidores y el broker se uso el siguiente Vagrantfile:
+ + Para crear las maquinas virtuales para el productor, los consumidores y el broker se uso el siguiente Vagrantfile:
 ![Imagen 1](/images/Vagrantfile.PNG)
 
 ##### 2. Aprovisionamiento de las maquinas
- + Se creó el archivo ansible.cfg							
+ + Se creó el archivo ansible.cfg<br/>							
  ![Imagen 2](/images/ansiblecfg.PNG)
- + Se creó el archivo hosts									
+ + Se creó el archivo hosts<br/>								
  ![Imagen 3](/images/hosts.PNG)
  + Se creó el archivo servers.yml en donde se definio el codigo para el aprovionamiento de las maquinas
-	+ Maquina broker	
+	+ Maquina broker<br/>
         ![Imagen 4](/images/ansibleBroker.png)
-	+ Maquinas Productor y consumidores	
+	+ Maquinas Productor y consumidores<br/>
         ![Imagen 5](/images/ansibleProductorConsumidor.png)
 
 ##### 3. Creacion del código en python para productor y consumidores
- + Código emmiter.py, es el codigo para el Productor en este caso este tiene la capacidad de enviar mensajes por 3 canales, Grupo01, Grupo02 y General. Solo los consumidores que esten dentro de los grupos pueden escucar los mesjases de su grupo.
+ + Código emmiter.py, es el codigo para el Productor en este caso este tiene la capacidad de enviar mensajes por 3 canales, Grupo01, Grupo02 y General. Solo los consumidores que esten dentro de los grupos pueden escuchar los mensjases de su grupo.
 ![Imagen 7](/images/emmiter.PNG)
  + Código reciever1.py es el codigo para el Consumidor 1, este podrá escuchar los mensajes que se envien po el Grupo01 y por General
 ![Imagen 8](/images/reciever1.PNG)
