@@ -124,10 +124,19 @@ Para resolver el problema se decidió usar máquinas virtuales creadas y adminis
  ![Imagen 40](/images/Envio_primer_mensaje.png)
  ![Imagen 41](/images/Funcionamiento_total.png)
 
+Consideramos importante decir que se decidio usar la herramienta **tmux** para poder tener ejecutando en background los códigos de los consumidores, para ingresar en las máquinas se usa el siguiente comando:  
+![Imagen 48](/images/comando_tmux_para_usar_screens_secundarias_y_ver_mensajes.png)
+
 ## Dificultades encontradas
 Durante el desarrollo del parcial nos encontramos con una dificultad, esta fue: ¿Cómo hacer para que el servicio de RabbitMQ pudiera funcionar de manera distribuida?, es decir, que desde otras máquinas (direcciones IP) se pudieran conectar al servidor que tenía RabbitMQ
 La solución fue:
- + Buscar la documentación de Pika y darnos cuenta de que se necesitan unas credenciales y unos permisos para acceder al servicio (eso por parte de los consumidores y el productor)
+ + Buscar la documentación de Pika y darnos cuenta de que se necesitan unas credenciales y unos permisos para acceder al servicio (eso por parte de los consumidores y el productor)  
+ ![Imagen 42](/images/documentacion_pika.png)
+ ![Imagen 43](/images/emmiterchanel.PNG)
+ ![Imagen 44](/images/reciever1channel.PNG)
+ ![Imagen 45](/images/reciever2channel.PNG)
  + Buscar la documentación de rabbitmq y ver que por defecto funciona en localhost y para permitir que sea alcanzado de manera remota eran necesario:
-	1. Crear el archivo de configuración y agregarle (el comando que me enviaste) y reiniciar el servicio
+	1. Se debe crear el archivo de configuración agregando una linea que permite el acceso de manera remota y se reinicia el servicio  
+	![Imagen 46](/images/rabbitconf.PNG)
 	2. Crear usuarios y darles los permisos de escritura y lectura, es importante recalcar en este caso que un solo usuario hubiera sido suficiente (es decir con un solo usuario, haciendo las modificaciones correctas en los códigos de python habría bastado) pero nosotros consideramos crear 3 usuarios pensando en que a futuro es posible que algún permiso de esos usuarios cambie y sería más fácil el mantenimiento
+        ![Imagen 47](/images/rabbitusers.PNG)
