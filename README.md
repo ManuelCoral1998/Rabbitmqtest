@@ -23,15 +23,15 @@ Para resolver el problema se decidio usar maquinas virtuales creadas y adminstra
 ![Imagen 1](/images/Vagrantfile.PNG)
 
 ##### 2. Aprovisionamiento de las maquinas
- + Se creó el archivo ansible.cfg
-![Imagen 2](/images/ansiblecfg.PNG)
- + Se creó el archivo hosts
-![Imagen 3](/images/hosts.PNG)
+ + Se creó el archivo ansible.cfg	
+ ![Imagen 2](/images/ansiblecfg.PNG)
+ + Se creó el archivo hosts	
+ ![Imagen 3](/images/hosts.PNG)
  + Se creó el archivo servers.yml en donde se definio el codigo para el aprovionamiento de las maquinas
-	+ Maquina broker
-![Imagen 4](/images/ansibleBroker.png)
-	+ Maquinas Productor y consumidores
-![Imagen 5](/images/ansibleProductorConsumidor.png)
+	+ Maquina broker	
+        ![Imagen 4](/images/ansibleBroker.png)
+	+ Maquinas Productor y consumidores	
+        ![Imagen 5](/images/ansibleProductorConsumidor.png)
 
 ##### 3. Creacion del código en python para productor y consumidores
  + Código emmiter.py, es el codigo para el Productor en este caso este tiene la capacidad de enviar mensajes por 3 canales, Grupo01, Grupo02 y General. Solo los consumidores que esten dentro de los grupos pueden escucar los mesjases de su grupo.
