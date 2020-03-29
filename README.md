@@ -66,7 +66,7 @@ Para resolver el problema se decidió usar máquinas virtuales creadas y adminis
 ##### 3. Creación del código en python para productor y consumidores
  + Código emmiter.py, es el código para el Productor en este caso este tiene la capacidad de enviar mensajes por 3 canales, Grupo01, Grupo02 y General. Solo los consumidores que estén dentro de los grupos pueden escuchar los mensajes de su grupo.
 	+ Se importa pip y pika, y se crea y configura el canal de comunicación con la información del broker, es necesario usar las credenciales registradas previamente para el productor y la ip del broker.<br/>
-	![Imagen 17](/images/emmiterchannel.PNG)<br/>
+	![Imagen 17](/images/emmiterchanel.PNG)<br/>
 	+ Se configuran los parámetros group, message y sus valores por defecto. El parámetro group define el grupo por el cual se va a mandar el mensaje y el parámetro message es el contenido del mensaje.<br/>
 	![Imagen 18](/images/emmiterparams.PNG)<br/>
 	+ Finalmente se crea el código que permite enviar un mensaje con la información en los parámetros.<br/>
