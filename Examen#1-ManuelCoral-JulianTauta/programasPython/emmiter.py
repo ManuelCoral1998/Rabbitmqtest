@@ -9,8 +9,7 @@ import pika
 import sys
 
 credentials = pika.PlainCredentials('Productor', 'Productor')
-#connection = pika.BlockingConnection(
-#    pika.ConnectionParameters(host='localhost'))
+
 connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.56.12',5672,'/',credentials))
 channel = connection.channel()
 
